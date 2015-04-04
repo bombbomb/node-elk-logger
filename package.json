@@ -1,0 +1,22 @@
+{
+  "name": "node-elk-logger",
+  "version": "1.0.0",
+  "description": "node logger",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bombbomb/node-elk-logger.git"
+  },
+  "author": "@ehippy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bombbomb/node-elk-logger/issues"
+  },
+  "homepage": "https://github.com/bombbomb/node-elk-logger",
+  "dependencies": {
+    "elasticsearch": "^4.0.2"
+  }
+}
