@@ -17,7 +17,7 @@ module.exports = {
     },
 
     getElasticSearchClient: function() {
-        if (typeof this.settings.esClient !== 'undefined') {
+        if (typeof this.settings.esClient === 'undefined') {
             var elasticsearch = require('elasticsearch');
             this.settings.esClient = new elasticsearch.Client({
                 host: this.settings.host
@@ -28,6 +28,10 @@ module.exports = {
     log: function(message, type) {
         if (this.settings.logToConsole) {
             console.log(message);
+        }
+
+        if (typeof type !== 'string') {
+            type = 'INFO';
         }
 
         var esMessage = message;
