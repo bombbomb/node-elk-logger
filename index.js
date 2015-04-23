@@ -10,7 +10,7 @@ module.exports = {
         messageDecorations: {}
     },
 
-    properies: {
+    properties: {
         priorConnectErrorCount: 0
     },
 
@@ -55,7 +55,7 @@ module.exports = {
         body.timestamp = now;
         body.message = esMessage;
 
-        if (this.settings.timeout > (10000) && this.properies.priorConnectErrorCount > 1)
+        if (this.settings.timeout > (10000) && this.properties.priorConnectErrorCount > 1)
         {
             this.getElasticSearchClient().ping({
                 requestTimeout: 2000,
@@ -64,18 +64,19 @@ module.exports = {
             }, function (error) {
                 if (error)
                 {
+                    elkInstance.properties.priorConnectErrorCount++;
                     console.trace('Elasticsearch cluster is down, sirs! Call teh Cawps');
                 }
                 else
                 {
                     console.trace('Oh snap! Elasticsearch is back?!');
-                    elkInstance.properies.priorConnectErrorCount = 0;
+                    elkInstance.properties.priorConnectErrorCount = 0;
                 }
             });
 
         }
 
-        if (this.properies.priorConnectErrorCount < this.settings.connectionFailureThreshold)
+        if (this.properties.priorConnectErrorCount < this.settings.connectionFailureThreshold)
         {
             this.getElasticSearchClient().index({
                 index: this.settings.elasticSearchIndexPrefix + '-' + now.getFullYear() + '.' + dateMonth + '.' + now.getDate(),
@@ -86,10 +87,10 @@ module.exports = {
                     // this doesn't yet deal with other connection issues
                     if (error.indexOf('Timeout') != -1)
                     {
-                        elkInstance.properies.priorConnectErrorCount++;
-                        console.log("Connection failures): " + elkInstance.properies.priorConnectErrorCount);
+                        elkInstance.properties.priorConnectErrorCount++;
+                        console.log("Connection failures): " + elkInstance.properties.priorConnectErrorCount);
                     }
-                    console.log("Could not log to elasticsearch ("+elkInstance.properies.priorConnectErrorCount+" connection failures): " + error);
+                    console.log("Could not log to elasticsearch ("+elkInstance.properties.priorConnectErrorCount+" connection failures): " + error);
                 } else {
                     //console.log("elasticsearch response: " + response);
                 }
