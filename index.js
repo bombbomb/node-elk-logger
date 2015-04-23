@@ -85,7 +85,7 @@ module.exports = {
             }, function (error, response) {
                 if (error) {
                     // this doesn't yet deal with other connection issues
-                    if (error.indexOf('Timeout') != -1)
+                    if (error.indexOf('Timeout') != -1 || error.indexOf('No Living connections') != -1)
                     {
                         elkInstance.properties.priorConnectErrorCount++;
                         console.log("Connection failures): " + elkInstance.properties.priorConnectErrorCount);
