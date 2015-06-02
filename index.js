@@ -7,7 +7,8 @@ module.exports = {
         logToConsole: true,
         connectionFailureThreshold: 5,
         esClient: undefined,
-        messageDecorations: {}
+        messageDecorations: {},
+        level: 'WARN'
     },
 
     properties: {
@@ -39,6 +40,11 @@ module.exports = {
 
         if (typeof type !== 'string') {
             type = 'INFO';
+        }
+
+        if ((this.settings.level == 'WARN' && type == 'INFO') || (this.settings.level == 'ERROR' && type != 'ERROR'))
+        {
+            return;
         }
 
         var esMessage = message;
