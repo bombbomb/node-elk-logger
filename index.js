@@ -84,18 +84,25 @@ module.exports = {
 
         if (this.properties.priorConnectErrorCount < this.settings.connectionFailureThreshold)
         {
-            this.getElasticSearchClient().index({
-                index: this.settings.elasticSearchIndexPrefix + '-' + now.getFullYear() + '.' + dateMonth + '.' + now.getDate(),
-                type: type,
-                body: body
-            }, function (error, response) {
-                if (error) {
-                    elkInstance.properties.priorConnectErrorCount++;
-                    console.log("Connection failures): " + elkInstance.properties.priorConnectErrorCount,error);
-                } else {
-                    //console.log("elasticsearch response: " + response);
-                }
-            });
+            try
+            {
+                this.getElasticSearchClient().index({
+                    index: this.settings.elasticSearchIndexPrefix + '-' + now.getFullYear() + '.' + dateMonth + '.' + now.getDate(),
+                    type: type,
+                    body: body
+                }, function (error, response) {
+                    if (error) {
+                        elkInstance.properties.priorConnectErrorCount++;
+                        console.error("node-elk-logger: Connection failure; " + elkInstance.properties.priorConnectErrorCount+': '+error);
+                    } else {
+                        //console.log("elasticsearch response: " + response);
+                    }
+                });
+            }
+            catch (e)
+            {
+                console.error('node-elk-logger Fatal Error: '+e);
+            }
         }
 
     },
