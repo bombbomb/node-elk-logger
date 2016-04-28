@@ -1,6 +1,6 @@
 {
   "name": "node-elk-logger",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "node logger",
   "main": "index.js",
   "scripts": {
