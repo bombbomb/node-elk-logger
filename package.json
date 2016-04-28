@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/bombbomb/node-elk-logger",
   "dependencies": {
-    "elasticsearch": "^4.0.2"
+    "elasticsearch": "^11.0.1"
   }
 }
