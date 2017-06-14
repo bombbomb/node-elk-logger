@@ -48,7 +48,11 @@ module.exports = {
         }
 
         var esMessage = message;
-        if (typeof esMessage !== 'undefined')
+-       if (typeof esMessage !== 'string')
+        {
+            esMessage = JSON.stringify(esMessage);
+        }
+        if (typeof payload !== 'undefined')
         {
             if (typeof payload !== 'string')
             {
