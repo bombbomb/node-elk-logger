@@ -58,7 +58,7 @@ module.exports = {
         }
         else if (typeof payload != 'undefined')
         {
-            esMessage += payload
+            esMessage += "\n\nPayload: " + payload
         }
 
         var elkInstance = this;
