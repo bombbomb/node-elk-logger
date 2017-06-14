@@ -48,10 +48,17 @@ module.exports = {
         }
 
         var esMessage = message;
-        if (typeof esMessage != 'string') {
-            esMessage = JSON.stringify(message);
-        }if (typeof payload != 'string' && typeof payload != 'undefined') {
-            esMessage += "\n\nPayload: " + JSON.stringify(payload);
+-       if (typeof esMessage !== 'string')
+        {
+            esMessage = JSON.stringify(esMessage);
+        }
+        if (typeof payload !== 'undefined')
+        {
+            if (typeof payload !== 'string')
+            {
+                payload = JSON.stringify(payload);
+            }
+            esMessage += '\n\nPayload: ' + payload
         }
 
         var elkInstance = this;
